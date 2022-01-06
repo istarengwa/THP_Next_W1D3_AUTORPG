@@ -1,10 +1,10 @@
-#RPG MMA RANDOM FIGHT TRALALA
+# RPG MMA RANDOM FIGHT TRALALA
 
-# Mini Game
+## Mini Game
 
 video games (without video) that play in the console of your web browser
 
-# Options
+## Options
 
 * Choose your player
 * Choose your name
