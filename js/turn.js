@@ -7,7 +7,7 @@ class Turn {
     
     let attack = 0;
     let attackChoice = 0;
-    let test12 = 0;
+    let stats = 0;
 
     if (player[0].status != "loser") { //choice player target system
 
@@ -34,10 +34,20 @@ class Turn {
 
       let targetRandom = player.filter(p => p !== player[random]);
       let victimRandom = targetRandom[Math.floor(Math.random() * targetRandom.length)];
+      let randomDice = Math.floor(Math.random() * 100);
       
       if (player[random].status != "loser") {
         if (victimRandom.status != "loser") {
-          player[random].dealDamage(victimRandom);
+          if (randomDice <= 75) {
+            console.log(" ");
+            console.log(`Player ${player[random].name} has just made a dice roll of ${randomDice} and can only do a basic attack !!!`);
+            player[random].dealDamage(victimRandom);
+          }
+          else {
+            console.log(" ");
+            console.log(`Player ${player[random].name} has just made a dice roll of ${randomDice} and is therefore launching a special attack !!!`);
+            player[random].special(victimRandom);
+          }
         }
         else {
           console.log(`${player[random].name} wanted to attack ${victimRandom.name} but this one is already dead`);
@@ -60,9 +70,9 @@ class Turn {
     }
 
     if (player[0].status != "loser") { //choice view stats or not
-      test12 = prompt(`choose 1 to look at the statistics or 2 not to see them`);
+      stats = prompt(`choose 1 to look at the statistics or 2 not to see them`);
       
-      if (test12 == 1) {
+      if (stats == 1) {
         console.log(player[0]);
         console.log(player[1]);
         console.log(player[2]);
@@ -73,10 +83,11 @@ class Turn {
       }
     }
 
-    if (player[0].shield > 0) {
-      player[0].shield = 0;
+    for (let i=0; i < player.length; i++) {
+      if (player[i].shield > 0) {
+        player[i].shield = 0;      
+      }
     }
-
 
   }
     

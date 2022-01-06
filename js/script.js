@@ -28,5 +28,10 @@ let player4 = new Fighter;
 let player5 = new Berzerker;
 let player6 = new Wizard;
 
+let nameChoice = prompt('Choose your name');
+
 let allplayer = [player0, player1, player2, player3, player4, player5, player6];
+
+allplayer[0].name = nameChoice;
+
 new Game (allplayer);
