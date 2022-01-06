@@ -17,40 +17,51 @@ class Character {
   }
 
   takeDamage(damage) {
-    this.hp -= (damage - this.shield);
+    if (this.shield > 999) {
+      this.hp = this.hp;
+    }
+    else {
+      this.hp -= (damage - this.shield);
+    }
+    
     if (this.hp <= 0) this.status = 'loser';
   }
 
   dealDamage(victim) {
-    console.log(`${this.name} inflicts ${this.dmg - victim.shield} damage on ${victim.name}.`);
-    
+    if (victim.shield > 999) {
+      console.log(`${this.name} inflicts 0 damage on ${victim.name} because this one is protected by its ulti.`);
+    }
+    else {
+      console.log(`${this.name} inflicts ${this.dmg - victim.shield} damage on ${victim.name}.`);
+    }
+
     victim.takeDamage(this.dmg);
     if (victim.hp <= 0) this.status = 'winner';
     if (victim.hp <= 0) this.mana += 20;
   }
 
   special(victim) {
-    if (this.mana >= this.spCost) {
-      this.mana -= this.spCost;
-      console.log(`${this.name} cast ${this.spName}.`);
-      if (this.spShield > 0) {
-        this.shield += this.spShield;
-        console.log(`${this.name} reduce damage by ${this.spShield} this turn.`);
+    if (this.mana >= this.sCost) {
+      this.mana -= this.sCost;
+      console.log(`${this.name} cast ${this.sName}.`);
+      if (this.sShield > 0) {
+        this.shield += this.sShield;
+        console.log(`${this.name} reduce damage by ${this.sShield} this turn.`);
       }
-      if (this.spDmg > 0) {
-        console.log(`${this.name} inflicts ${this.spDmg - victim.shield} damage on ${victim.name}.`);
-        victim.takeDamage(this.spDmg);
+      if (this.sDmg > 0) {
+        console.log(`${this.name} inflicts ${this.sDmg - victim.shield} damage on ${victim.name}.`);
+        victim.takeDamage(this.sDmg);
       }
-      if (this.spHeal > 0) {
-        this.hp += this.spHeal;
-        console.log(`${this.name} restore ${this.spHeal} health points.`);
+      if (this.sHeal > 0) {
+        this.hp += this.sHeal;
+        console.log(`${this.name} restore ${this.sHeal} health points.`);
       }
-      if (this.spBoost > 0) {
+      if (this.sBoost > 0) {
         this.dmg += 1;
-        console.log(`${this.name} gains ${this.spBoost} permanent damage points.`);
+        console.log(`${this.name} gains ${this.sBoost} permanent damage points.`);
         if (this.hp > 1) {
           this.hp -= 1;
-          console.log(`${this.name} inflicts 1 point of damage.`);
+          console.log(`${this.name} receive 1 point of damage.`);
         }
       }
     }

@@ -11,8 +11,10 @@ class Turn {
 
     if (player[0].status != "loser") { //choice player target system
 
-      attack = prompt(`You are currently playing the class of ${player[0].nameClass}
-      Choose 1 to attack ${player[1].name}, Choose 2 to attack ${player[2].name}, Choose 3 to attack ${player[3].name}, Choose 4 to attack ${player[4].name}, Choose 5 to attack ${player[5].name}, Choose 6 to attack ${player[6].name}`);
+      while ((attack > 6 || attack <= 0)) {
+        attack = prompt(`You are currently playing the class of ${player[0].nameClass}
+        Choose 1 to attack ${player[1].name}, Choose 2 to attack ${player[2].name}, Choose 3 to attack ${player[3].name}, Choose 4 to attack ${player[4].name}, Choose 5 to attack ${player[5].name}, Choose 6 to attack ${player[6].name}`);
+      }
       while (player[attack].hp <= 0) {
         attack = prompt(`The chosen character is dead, choose 1 to attack ${player[1].name}, Choose 2 to attack ${player[2].name}, Choose 3 to attack ${player[3].name}, Choose 4 to attack ${player[4].name}, Choose 5 to attack ${player[5].name}, Choose 6 to attack ${player[6].name}`);
       }
@@ -70,6 +72,11 @@ class Turn {
         console.log(player[6]);
       }
     }
+
+    if (player[0].shield > 0) {
+      player[0].shield = 0;
+    }
+
 
   }
     
