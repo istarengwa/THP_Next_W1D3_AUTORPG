@@ -8,26 +8,52 @@ class Turn {
     let attack = 0;
     let attackChoice = 0;
     let stats = 0;
+    let attackfordead = 0;
 
     if (player[0].status != "loser") { //choice player target system
-
+      
       while ((attack > 6 || attack <= 0)) {
         attack = prompt(`You are currently playing the class of ${player[0].nameClass}
         Choose 1 to attack ${player[1].name}, Choose 2 to attack ${player[2].name}, Choose 3 to attack ${player[3].name}, Choose 4 to attack ${player[4].name}, Choose 5 to attack ${player[5].name}, Choose 6 to attack ${player[6].name}`);
+        if (attack <= 6 && attack > 0) {}
+        else {
+          attack = 0;
+        }      
       }
-      while (player[attack].hp <= 0) {
-        attack = prompt(`The chosen character is dead, choose 1 to attack ${player[1].name}, Choose 2 to attack ${player[2].name}, Choose 3 to attack ${player[3].name}, Choose 4 to attack ${player[4].name}, Choose 5 to attack ${player[5].name}, Choose 6 to attack ${player[6].name}`);
+      
+      while (player[attack].hp <= 0 && attackfordead == 0) {
+        attack = prompt(`The chosen character is dead, choose 1 to attack ${player[1].name}, Choose 2 to attack ${player[2].name}, Choose 3 to attack ${player[3].name}, Choose 4 to attack ${player[4].name}, Choose 5 to attack ${player[5].name}, Choose 6 to attack ${player[6].name}`);         
+        if (attack <= 6 && attack > 0 && player[attack].hp > 0) {
+          console.log(player[attack].hp);
+          attackfordead += 1;
+        }
+        else {
+          attackfordead = 0;
+        }
       }
 
+      attackfordead = 0;
+
       attackChoice = prompt(`You are currently playing the class of ${player[0].nameClass}
-      Choose 1 for a normal attack and 2 for a special attack`);
+      Choose 1 for a normal attack and 2 for a special attack, or other for random attack`);
 
       if (attackChoice == 1) {
         player[0].dealDamage(player[attack]);
       }
-      else {
+      else if (attackChoice == 2) {
         player[0].special(player[attack]);
-      } 
+      }
+      else {
+        let randomDice = Math.floor(Math.random() * 100);
+        if (randomDice <= 75) {
+          console.log(`You just made a dice roll ${randomDice} and can only do a basic attack !!!`);
+          player[0].dealDamage(player[attack]);
+        }
+        else {
+          console.log(`You just made a dice roll ${randomDice} and can only do a special attack !!!`);
+          player[0].special(player[attack]);
+        }
+      }
     }
 
     for (let random = 1; random < player.length; random++) { //random npc target system
@@ -83,7 +109,7 @@ class Turn {
       }
     }
 
-    for (let i=0; i < player.length; i++) {
+    for (let i=0; i < player.length; i++) { //reset shield system
       if (player[i].shield > 0) {
         player[i].shield = 0;      
       }

@@ -19,6 +19,9 @@ else if (choice == 5) {
 else if (choice == 6) {
   choicePlayer = new Berzerker;
 }
+else {
+  choicePlayer = new Wizard;
+}
 
 let player0 = choicePlayer;
 let player1 = new Monk;
