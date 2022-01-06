@@ -1,5 +1,5 @@
 class Character {
-  constructor(nameClass, name, hp, dmg, mana, shield = 0, sName = "", sDmg = 0, sShield = 0, sHeal = 0, sBoost = 0, sCost = 0, sDesc = "") {
+  constructor(nameClass, name, hp, dmg, mana, shield = 0, sName = "", sDmg = 0, sShield = 0, sHeal = 0, sBoost = 0, sCost = 0, sDesc = "", sLogo = "") {
     this.nameClass = nameClass;
     this.name = name;
     this.hp = hp;
@@ -13,6 +13,7 @@ class Character {
     this.sBoost = sBoost;
     this.sCost = sCost;
     this.sDesc = sDesc;
+    this.sLogo = sLogo;
     this.status = "playing";
   }
 
@@ -29,10 +30,10 @@ class Character {
 
   dealDamage(victim) {
     if (victim.shield > 999) {
-      console.log(`${this.name} inflicts 0 damage on ${victim.name} because this one is protected by its ulti.`);
+      console.log(`${this.name} inflicts 0 damage on ${victim.name} because this one is protected 🛡️ by its special attack.`);
     }
     else {
-      console.log(`${this.name} inflicts ${this.dmg - victim.shield} damage on ${victim.name}.`);
+      console.log(`${this.name} inflicts ${this.dmg - victim.shield} damage on ${victim.name} the ${victim.nameClass}.`);
     }
 
     victim.takeDamage(this.dmg);
@@ -43,30 +44,35 @@ class Character {
   special(victim) {
     if (this.mana >= this.sCost) {
       this.mana -= this.sCost;
-      console.log(`${this.name} cast ${this.sName}.`);
+      console.log(`${this.name} cast ${this.sName} ${this.sLogo}.`);
       if (this.sShield > 0) {
         this.shield += this.sShield;
-        console.log(`${this.name} reduce damage by ${this.sShield} this turn.`);
+        console.log(`${this.name} reduce damage by ${this.sShield} 🛡️ this turn.`);
       }
       if (this.sDmg > 0) {
-        console.log(`${this.name} inflicts ${this.sDmg - victim.shield} damage on ${victim.name}.`);
+        if (victim.shield > 999) {
+          console.log(`${this.name} inflicts 0 damage on ${victim.name} because this one is protected 🛡️ by its special attack.`);
+        }
+        else {
+          console.log(`${this.name} inflicts ${this.sDmg - victim.shield} damage on ${victim.name} the ${victim.nameClass}.`);
+        }
         victim.takeDamage(this.sDmg);
       }
       if (this.sHeal > 0) {
         this.hp += this.sHeal;
-        console.log(`${this.name} restore ${this.sHeal} health points.`);
+        console.log(`${this.name} restore ${this.sHeal} health points ❤️‍🩹.`);
       }
       if (this.sBoost > 0) {
         this.dmg += 1;
-        console.log(`${this.name} gains ${this.sBoost} permanent damage points.`);
+        console.log(`${this.name} gains ${this.sBoost} permanent damage points 💪.`);
         if (this.hp > 1) {
           this.hp -= 1;
-          console.log(`${this.name} receive 1 point of damage.`);
+          console.log(`${this.name} receive 1 point of damage 🔪🩸.`);
         }
       }
     }
     else {
-      console.log(`Not having enough mana, you launch a normal attack.`);
+      console.log(`Not having enough mana 💠💠💠, you launch a normal attack.`);
       this.dealDamage(victim);
     }
   };
