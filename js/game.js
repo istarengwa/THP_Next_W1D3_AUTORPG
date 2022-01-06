@@ -5,7 +5,7 @@ class Game {
   }
 
   init(player) {
-    while (this.turnLeft > 0 && player.filter(p => p.status == "loser").length < player.length - 1 && player[0].status != "loser" ) {
+    while (this.turnLeft > 0 && player.filter(p => p.status == "loser").length < player.length - 1) {
       this.newTurn();
     }
     console.log("Game over");
