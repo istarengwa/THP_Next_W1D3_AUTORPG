@@ -42,7 +42,7 @@ class Character {
   }
 
   special(victim) {
-    if (this.mana >= this.sCost) {
+    if (this.mana >= this.sCost && this.nameClass !== "Berzerker") {
       this.mana -= this.sCost;
       console.log(`${this.name} cast ${this.sName} ${this.sLogo}.`);
       if (this.sShield > 0) {
@@ -62,13 +62,14 @@ class Character {
         this.hp += this.sHeal;
         console.log(`${this.name} restore ${this.sHeal} health points ❤️‍🩹.`);
       }
-      if (this.sBoost > 0) {
-        this.dmg += 1;
-        console.log(`${this.name} gains ${this.sBoost} permanent damage points 💪.`);
-        if (this.hp > 1) {
-          this.hp -= 1;
-          console.log(`${this.name} receive 1 point of damage 🔪🩸.`);
-        }
+    }
+    else if  (this.nameClass === "Berzerker") {
+      console.log(`${this.name} cast ${this.sName} ${this.sLogo}.`);
+      this.dmg += 1;
+      console.log(`${this.name} gains ${this.sBoost} permanent damage points 💪.`);
+      if (this.hp > 1) {
+        this.hp -= 1;
+        console.log(`${this.name} receive 1 point of damage 🔪🩸.`);
       }
     }
     else {
