@@ -5,18 +5,27 @@ class Turn {
 
   init(player) {
     
-    let attack = 0;   
+    let attack = 0;
+    let attackChoice = 0;
+    let test12 = 0;
 
     if (player[0].status != "loser") { //choice player target system
+
       attack = prompt(`You are currently playing the class of ${player[0].nameClass}
       Choose 1 to attack ${player[1].name}, Choose 2 to attack ${player[2].name}, Choose 3 to attack ${player[3].name}, Choose 4 to attack ${player[4].name}, Choose 5 to attack ${player[5].name}, Choose 6 to attack ${player[6].name}`);
-      if (player[attack].hp <= 0) {
+      while (player[attack].hp <= 0) {
         attack = prompt(`The chosen character is dead, choose 1 to attack ${player[1].name}, Choose 2 to attack ${player[2].name}, Choose 3 to attack ${player[3].name}, Choose 4 to attack ${player[4].name}, Choose 5 to attack ${player[5].name}, Choose 6 to attack ${player[6].name}`);
+      }
+
+      attackChoice = prompt(`You are currently playing the class of ${player[0].nameClass}
+      Choose 1 for a normal attack and 2 for a special attack`);
+
+      if (attackChoice == 1) {
         player[0].dealDamage(player[attack]);
       }
       else {
-        player[0].dealDamage(player[attack]);
-      }  
+        player[0].special(player[attack]);
+      } 
     }
 
     for (let random = 1; random < player.length; random++) { //random npc target system
@@ -48,29 +57,19 @@ class Turn {
       }
     }
 
-    // if (player[0].status != "loser") { //choice view stats or not
-    //   test12 = prompt(`choose 1 to look at the statistics or 2 not to see them`);
-    //   if (test12 === 1) {
-    //     console.log(player[0]);
-    //     console.log(player[1]);
-    //     console.log(player[2]);
-    //     console.log(player[3]);
-    //     console.log(player[4]);
-    //     console.log(player[5]);
-    //     console.log(player[6]);
-    //   }
-    //   else {
-        
-    //   }
-    // }
-
-    console.log(player[0]);
-    console.log(player[1]);
-    console.log(player[2]);
-    console.log(player[3]);
-    console.log(player[4]);
-    console.log(player[5]);
-    console.log(player[6]);
+    if (player[0].status != "loser") { //choice view stats or not
+      test12 = prompt(`choose 1 to look at the statistics or 2 not to see them`);
+      
+      if (test12 == 1) {
+        console.log(player[0]);
+        console.log(player[1]);
+        console.log(player[2]);
+        console.log(player[3]);
+        console.log(player[4]);
+        console.log(player[5]);
+        console.log(player[6]);
+      }
+    }
 
   }
     
